@@ -1,0 +1,20 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+int maxDepth(struct TreeNode* root)
+{
+    int l=-1;//因为最后会多出一层所以从-1开始
+    int r=-1;
+    if(root!=NULL)
+    {
+        l=maxDepth(root->left);//获取左子树高度
+        r=maxDepth(root->right);//获取右子树高度
+    }
+    return l>r?l+1:r+1;//通过累加从最底层开始向上，判断左右子树哪个大然后返回最大的值就是树的高度
+}
