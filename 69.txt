@@ -1,0 +1,24 @@
+
+int mySqrt(int x)
+{
+double i=0;
+double point;//设置double值防止溢出
+while(1)
+{
+if(x<(ii))//判断x是否小于i的平方，小于时即为要找的平方值的后一位数
+{
+point=i-1;
+break;
+}
+if(x==(ii))//判断x是否等于平方值，等于直接等于平方值的开根数
+{
+point=i;
+break;
+}
+i++;
+}
+return point;
+}
+时间复杂度:O(n)
+空间复杂度:O(1)
+
