@@ -1,0 +1,19 @@
+int** generate(int numRows, int* returnSize, int** returnColumnSizes)
+{
+    int** res=malloc(numRows*sizeof(int*));
+    *returnColumnSizes=(int*)malloc(sizeof(int)*numRows);
+    *returnSize=numRows;
+    for(int i=0;i<numRows;i++)
+    {
+        res[i]=(int*)malloc(sizeof(int)*(i+1));
+        returnColumnSizes[0][i]=(i+1);
+        res[i][0]=res[i][i]=1;
+        for(int k=1;k<i;k++)
+        {
+            res[i][k]=res[i-1][k-1]+res[i-1][k];
+        }
+    }
+    return res;
+}
+时间复杂度:O(n²)
+空间复杂度:O(1)
