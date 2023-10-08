@@ -1,0 +1,19 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* getRow(int rowIndex, int* returnSize)
+{
+    int**res=malloc(sizeof(int*)*(rowIndex+1));
+    *returnSize=rowIndex+1;
+    for(int i=0;i<rowIndex+1;i++)
+    {
+        res[i]=malloc(sizeof(int)*(i+1));
+        res[i][i]=res[i][0]=1;
+        for(int j=1;j<i;j++)
+        {
+            res[i][j]=res[i-1][j]+res[i-1][j-1];
+        }
+    }
+    return res[rowIndex];//用二维数组的基础上创建出杨辉三角，最后将杨辉三角的某行返回
+}
+时间和空间复杂度:O(rowindex²)
