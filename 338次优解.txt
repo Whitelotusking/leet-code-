@@ -1,0 +1,25 @@
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* countBits(int n, int* returnSize)
+{
+    int temp;
+    int k;
+    int *res=malloc(sizeof(int)*(n+1));
+    *returnSize=n+1;
+    for(int i=0;i<=n;i++)
+    {
+        temp=i;
+        k=0;
+        while(temp!=0)
+        {
+            if(temp%2==1)k++;
+            temp=temp/2;
+        }
+        res[i]=k;
+    }
+    return res;
+}
+空间复杂度:O(1)
+时间复杂度:O(n*logn)
