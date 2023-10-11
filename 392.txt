@@ -1,0 +1,25 @@
+bool isSubsequence(char * s, char * t)
+{
+    int length1=strlen(s);//记录s串的长度
+    length1;
+    int length2=strlen(t);//记录t串的长度
+    length2;
+    int t2=0;//记录s串某个字符的位置
+    int t1=0;//记录t串某个字符的位置
+    while(t2<length2)//遍历t串，寻找是否字符可以匹配s串
+    {
+        if(s[t1]==t[t2])
+        {
+            t1++;
+            t2++;
+        }
+        else{t2++;}
+    }
+    if(t1!=length1)return false;
+    return true;
+}
+空间复杂度:O(1)
+时间复杂度:O(n)
+
+思路：用两个变量分别记录s串和t串，当t串中有字符匹配s串的字符时同时前进，依次寻找t串的字符，直到t串结束，
+若此时s串中的位置超出串的位置本身，则说明匹配成功，否则失败
