@@ -1,0 +1,44 @@
+int minCostClimbingStairs(int* cost, int costSize){
+    int* dp=malloc(sizeof(int)*(costSize+1));
+    if(costSize>=3)
+    {
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+        for(int i=2;i<costSize;i++)
+        {
+            if(dp[i-1]>dp[i-2])
+            {
+                dp[i]=dp[i-2]+cost[i];
+            }
+            else
+            {
+                dp[i]=dp[i-1]+cost[i];
+            }
+        }
+    }
+    else{
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+    }
+    if(dp[costSize-1]>dp[costSize-2])
+    {
+        dp[costSize]=dp[costSize-2];
+    }
+    else{
+        dp[costSize]=dp[costSize-1];
+    }
+    return dp[costSize];
+}
+时间复杂度:O(n)
+空间复杂度:O(n)
+思路:动态规划
+1.定义dp数组
+dp数组的含义是到达第i层时花费的钱数
+2.递推公式
+dp[i]=min{dp[i-1]},dp[i-2]+const[i];
+到达第i层时因为要向上跳所以要加上本层的花费和取上前两层最小的花费使得到达本层时花费最小
+3.初始化dp数组
+因为costsize>=2，所以dp[0]=cost[0],dp[1]=cost[1]
+4.遍历顺序
+因为是从最底层开始跳，所以遍历顺序为从左到右
+5.打印dp数组
