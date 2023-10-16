@@ -1,0 +1,61 @@
+int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridSize, int* obstacleGridColSize){
+    int**res=malloc(sizeof(int*)*obstacleGridSize);//申请二维数组
+    for(int i=0;i<obstacleGridSize;i++)//申请行空间
+    {
+        res[i]=malloc(sizeof(int)*(*obstacleGridColSize));
+    }
+    for(int i=0;i<*obstacleGridColSize;i++)//初始化行
+    {
+        if(obstacleGrid[0][i]==1)
+        {
+            for(int j=i;j<(*obstacleGridColSize);j++)res[0][j]=0;
+            break;
+        }
+        res[0][i]=1;
+    }
+    for(int i=0;i<obstacleGridSize;i++)//列初始化
+    {
+        if(obstacleGrid[i][0]==1)
+        {
+            for(int j=i;j<obstacleGridSize;j++)res[j][0]=0;
+            break;
+        }
+        res[i][0]=1;
+    }
+    
+    if(*obstacleGridColSize>=2&&obstacleGridSize>=2)//进行状态转移
+    {
+      for(int i=1;i<obstacleGridSize;i++)
+      {
+          for(int j=1;j<*obstacleGridColSize;j++)
+          {
+              if(obstacleGrid[i][j]==1)
+              {
+                  res[i][j]=0;
+              }
+              else{
+                  res[i][j]=res[i-1][j]+res[i][j-1];
+              }
+          }
+      }
+    }
+    
+    return res[obstacleGridSize-1][*obstacleGridColSize-1];//返回最终路径
+}
+时间复杂度:O(n²)
+空间复杂度:O(n²)
+思路:
+1.定义dp数组
+dp数组的含义是到达第i,j个单元格时有多少种路径
+2.状态转移方程
+该单元格的状态由该格的上方和左方给出，即到达该单元格时有上+左种方法
+3.初始化dp数组
+首先默认将第一行和第一列初始化为1，该初始化根据不同路径Ⅰ的解法得到
+初始化要根据给定的路径去判断路障在哪个位置，根据路障所在位置去处理
+障碍出现会导致什么情况发生？
+1.若障碍出现在初始化位置则会导致障碍下方和障碍右方的路径无法前往，因为每次走只能向下或者向右，所以在初始化位置被挡住的路径是无法前往的
+2.若障碍出现在非初始化行，这时候是可以绕开路障的，所以不需要更改路障右边或者下边的行或者列，但需要将状态转移到该位置的路径方法赋值为0，因为无论如何是无法到达障碍点的
+4.遍历dp数组
+根据状态转移方程和初始化条件可得从左向右，从上到下
+5.打印dp数组
+
