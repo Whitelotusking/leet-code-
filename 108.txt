@@ -1,0 +1,23 @@
+struct TreeNode* helper(int* nums, int left, int right) {
+    if (left > right) {//当low>hig时返回空节点
+        return NULL;
+    }
+
+   
+    int mid = (left + right) / 2;
+
+    struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));//构建节点
+    root->val = nums[mid];
+    root->left = helper(nums, left, mid - 1);//递归划分左子树
+    root->right = helper(nums, mid + 1, right);//递归划分右子树
+    return root;
+}
+
+struct TreeNode* sortedArrayToBST(int* nums, int numsSize) {
+    return helper(nums, 0, numsSize - 1);//进行构建
+}
+思路:
+二叉排序树的有序数组构建过程就类似于二分查找，每次找到中间的一颗节点然后以它为根然后划分为左右两个子树
+然后继续向下，依此方式划分，直到剩下最后一个节点，若low>high时返回空节点。
+时间复杂度:O(n)
+空间复杂度:O(1)
